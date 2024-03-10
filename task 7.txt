@@ -1,0 +1,29 @@
+//day 7 
+// Fetching data from the API
+fetch("https://restcountries.com/v3.1/all")
+  .then(response => response.json())
+  .then(data => {
+    // Filter countries from Asia continent/region
+    const asiaCountries = data.filter(country => country.region === "Asia");
+
+    // Filter countries with a population of less than 200,000
+    const countriesWithLowPopulation = data.filter(country => country.population < 200000);
+
+    // Print details of countries (name, capital, flag) using forEach function
+    data.forEach(country => {
+      console.log(Name ${country.name.common}, Capital: ${country.capital}, Flag: ${country.flags.png});
+    });
+
+    // Calculate total population using reduce function
+    const totalPopulation = data.reduce((acc, country) => acc + country.population, 0);
+
+    console.log("Total population:", totalPopulation);
+
+    // Find the country that uses US dollars as currency
+    const countryWithUSD = data.find(country => {
+      return country.currencies && country.currencies.USD;
+    });
+
+    console.log("Country that uses US dollars:", countryWithUSD.name.common);
+  })
+  .catch(error => console.log("Error fetching data:", error)
